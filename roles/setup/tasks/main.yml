@@ -1,0 +1,7 @@
+---
+- name: Create deployment dir
+  file:
+    path: "{{ app_dest }}"
+    state: directory
+    group: deployers
+    mode: '0775'

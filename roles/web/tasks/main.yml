@@ -1,0 +1,20 @@
+---
+- name: Check if version directory exists.
+  stat:
+    path: "{{ app_dest }}/{{ app_version }}"
+  register: file_details
+
+- name: Pull repository from github
+  git:
+    repo: "{{ app_repository }}"
+    dest: "{{ app_dest }}/{{ app_version }}"
+    version: "{{ app_version }}"
+  when: not file_details.stat.exists
+
+- name: Change ownership
+  file:
+    path: "{{ app_dest }}/{{ app_version }}"
+    recurse: yes
+    state: directory
+    group: deployers
+    mode: '0775'

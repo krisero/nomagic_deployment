@@ -1,0 +1,19 @@
+---
+- name: Ensure group "deployers" exists
+  group:
+    name: deployers
+    state: present
+- name: Add the user 'vagrant' to group of 'deployers'
+  user:
+    name: vagrant
+    groups:
+      - deployers
+    append: yes
+- name: Add the user 'johnsnow' with uid to group of 'deployers'
+  user:
+    name: johnsnow
+    comment: John Snow
+    uid: 1040  # I hope it is not vagrant uid
+    groups:
+      - deployers
+    append: yes

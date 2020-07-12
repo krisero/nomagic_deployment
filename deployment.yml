@@ -1,0 +1,6 @@
+---
+- hosts: production
+  roles:
+    - role: web
+    - role: nginx
+      become: yes

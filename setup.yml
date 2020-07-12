@@ -1,0 +1,7 @@
+---
+- hosts: production
+  roles:
+    - role: users
+      become: yes
+    - role: setup
+      become: yes

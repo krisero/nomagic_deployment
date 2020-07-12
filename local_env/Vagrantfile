@@ -1,0 +1,11 @@
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+    config.vm.box = "ubuntu/xenial64"
+    config.vm.network :forwarded_port, :host => 58080, :guest => 80
+    config.vm.network :forwarded_port, :host => 58443, :guest => 443
+    config.vm.provider :virtualbox do |vb|
+      vb.name = "nomagic-local"
+      vb.memory = 2048
+      vb.cpus = 2
+    end
+end

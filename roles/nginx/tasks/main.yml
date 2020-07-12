@@ -1,0 +1,37 @@
+---
+- name: Add nomagic-local.cert
+  template:
+    src: nomagic-local.cert.j2
+    dest: /etc/ssl/certs/nomagic-local.cert
+
+- name: Add nomagic-local.key
+  template:
+    src: nomagic-local.key.j2
+    dest: /etc/ssl/private/nomagic-local.key
+
+- name: Add nginx repository
+  apt_repository:
+    repo: ppa:nginx/stable  # it should be internal repo
+    state: present
+
+- name: Install nginx
+  apt:
+    pkg: nginx
+    state: present
+    update_cache: true
+
+- name: Add nginx config
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    group: deployers  # not fully secured solution
+  notify:
+    - Reload Nginx
+
+- name: Add nomagic-local config
+  template:
+    src: nomagic-local.conf.j2
+    dest: /etc/nginx/conf.d/nomagic-local.conf
+    group: deployers  # not fully secured solution
+  notify:
+    - Reload Nginx
