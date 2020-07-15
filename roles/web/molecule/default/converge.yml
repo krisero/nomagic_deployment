@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include setup"
+      include_role:
+        name: "setup"
+    - name: "Include users"
+      include_role:
+        name: "users"
+    - name: "Include nginx"
+      include_role:
+        name: "nginx"
+    - name: "Include web"
+      include_role:
+        name: "web"

@@ -5,3 +5,5 @@
       become: yes
     - role: setup
       become: yes
+    - role: nginx
+      become: yes

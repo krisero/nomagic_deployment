@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+  options:
+    ansible_python_interpreter: /usr/bin/python3
+platforms:
+  - name: instance-debian
+    image: ubuntu:18.04
+    dockerfile: Dockerfile.j2
+    groups:
+      - production
+  - name: instance-rhel
+    image: centos:7
+    dockerfile: Dockerfile.j2
+    groups:
+      - production
+    command: /sbin/init
+    privileged: True
+provisioner:
+  name: ansible
+  inventory:
+    links:
+      group_vars: ../../../../group_vars/
+    host_vars:
+      all:
+        ansible_user: ansible
+  config_options:
+    defaults:
+      vault_password_file: "${MOLECULE_SCENARIO_DIRECTORY}/vault.pw"
+lint: |
+    yamllint .
+verifier:
+  name: testinfra
