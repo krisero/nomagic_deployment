@@ -5,3 +5,6 @@
     state: directory
     group: deployers
     mode: '0775'
+    recurse: yes
+- name: Reset ssh connection
+  meta: reset_connection

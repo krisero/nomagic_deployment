@@ -1,3 +1,5 @@
 *.bkp
 *.log
+*.pw
 **/.vagrant
+**/__pycache__
